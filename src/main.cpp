@@ -7,9 +7,15 @@
 //
 
 #include <iostream>
+#include "objects.h"
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    AbsoluteLocation l("Room B");
+    Object obj("table", l);
+    
+    cout << obj.name << endl;
+    
     return 0;
 }

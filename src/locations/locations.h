@@ -10,10 +10,13 @@
 #define locations_h
 
 #include <string>
+#include "location_visitor.h"
 
 using namespace std;
 
 class Location {
+public:
+    virtual void accept(LocationVisitor &visitor) = 0;
 };
 
 class AbsoluteLocation: public Location {
@@ -22,6 +25,10 @@ public:
     const string room_name;
     
     AbsoluteLocation(string room_name): room_name(room_name) {
+    }
+    
+    void accept(LocationVisitor &visitor) override {
+        visitor.visit(*this);
     }
 };
 

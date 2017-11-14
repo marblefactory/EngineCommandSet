@@ -8,6 +8,9 @@
 
 #include <iostream>
 #include "objects.h"
+#include "actions.h"
+#include "locations.h"
+#include "movement.h"
 
 using namespace std;
 

@@ -9,8 +9,12 @@
 #ifndef actions_h
 #define actions_h
 
+#include "action_visitor.h"
+
 // Parent class for other actions, e.g. movement, interaction, etc
 class Action {
+public:
+    virtual void accept(ActionVisitor &visitor) = 0;
 };
 
 #endif /* actions_h */

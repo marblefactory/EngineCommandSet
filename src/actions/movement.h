@@ -13,6 +13,10 @@
 
 // Represents a move the spy can make.
 class Move: public Action {
+public:
+    void accept(ActionVisitor &visitor) {
+        visitor.visit(*this);
+    }
 };
 
 #endif /* movement_h */

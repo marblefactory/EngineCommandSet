@@ -18,7 +18,7 @@ using namespace std;
 class Object {
 public:
     const string name;
-    const Location location;
+    const Location &location;
     
     Object(string name, Location location): name(name), location(location) {
     }

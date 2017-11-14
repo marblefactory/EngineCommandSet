@@ -14,7 +14,14 @@
 // Represents a move the spy can make.
 class Move: public Action {
 public:
-    void accept(ActionVisitor &visitor) {
+    // The destination of the movement, i.e. where the spy will end up after
+    // executing the movement.
+    Object &dest;
+    
+    Move(Object &dest): dest(dest) {
+    }
+    
+    void accept(ActionVisitor &visitor) override {
         visitor.visit(*this);
     }
 };

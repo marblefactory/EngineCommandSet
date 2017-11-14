@@ -17,10 +17,10 @@ using namespace std;
 // Represents an object, e.g. the table in room 812.
 class Object {
 public:
-    const string name;
-    const Location &location;
+    string name;
+    Location &location;
     
-    Object(string name, Location location): name(name), location(location) {
+    Object(string name, Location &location): name(name), location(location) {
     }
 };
 

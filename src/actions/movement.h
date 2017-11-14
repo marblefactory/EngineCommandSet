@@ -9,6 +9,7 @@
 #ifndef movement_h
 #define movement_h
 
+#include "objects.h"
 #include "actions.h"
 
 // Represents a move the spy can make.

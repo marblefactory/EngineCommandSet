@@ -9,7 +9,7 @@
 #ifndef actions_h
 #define actions_h
 
-#include "action_visitor.h"
+#include "action_visitor.hpp"
 
 // Parent class for other actions, e.g. movement, interaction, etc
 class Action {

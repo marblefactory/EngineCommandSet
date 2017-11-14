@@ -7,7 +7,7 @@
 //
 
 #include "catch.hpp"
-#include "locations.h"
+#include "locations.hpp"
 
 // Used for testing. Stores the location it last visited.
 class MockLocationVisitor: public LocationVisitor {

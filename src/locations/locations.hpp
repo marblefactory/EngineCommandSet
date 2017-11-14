@@ -10,7 +10,7 @@
 #define locations_h
 
 #include <string>
-#include "location_visitor.h"
+#include "location_visitor.hpp"
 
 using namespace std;
 

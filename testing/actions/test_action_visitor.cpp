@@ -7,7 +7,7 @@
 //
 
 #include "catch.hpp"
-#include "movement.h"
+#include "movement.hpp"
 
 // Used for testing. Stores the location it last visited.
 class MockActionVisitor: public ActionVisitor {

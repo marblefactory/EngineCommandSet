@@ -9,3 +9,4 @@
 // This tells catch to a main function.
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
+#include "parse_result.hpp"

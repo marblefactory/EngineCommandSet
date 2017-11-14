@@ -9,8 +9,8 @@
 #ifndef movement_h
 #define movement_h
 
-#include "objects.h"
-#include "actions.h"
+#include "objects.hpp"
+#include "actions.hpp"
 
 // Represents a move the spy can make.
 class Move: public Action {

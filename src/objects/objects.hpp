@@ -10,7 +10,7 @@
 #define object_h
 
 #include <string>
-#include "locations.h"
+#include "locations.hpp"
 
 using namespace std;
 

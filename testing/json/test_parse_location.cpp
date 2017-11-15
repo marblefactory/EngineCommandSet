@@ -10,23 +10,54 @@
 #include "json.hpp"
 #include "location_parser.hpp"
 
-TEST_CASE("AbsoluteLocations can be parsed from JSON") {
-    json j = {
-        {"type", "absolute"},
-        {"room_name", "Room 6B"}
-    };
+using namespace std;
+
+SCENARIO("Parsing AbsoluteLocations") {
+    GIVEN("valid JSON") {
+        json j = {
+            {"type", "absolute"},
+            {"room_name", "Room 6B"}
+        };
+        
+        THEN("the AbsoluteLocation is parsed") {
+            AbsoluteLocation* l = ParseAbsoluteLocation(j);
+            
+            REQUIRE(l->room_name == "Room 6B");
+        }
+    }
     
-    Result<AbsoluteLocation*> r = ParseAbsoluteLocation(j);
-    
-    REQUIRE(r.get_value()->room_name == "Room 6B");
+    GIVEN("JSON where the room_name is missing") {
+        json j = {
+            {"type", "absolute"}
+        };
+        
+        THEN("the AbsoluteLocation is not parsed") {
+            REQUIRE_THROWS(ParseAbsoluteLocation(j));
+        }
+    }
 }
 
-TEST_CASE("AbsoluteLocations cannot be parsed from JSON if missing a room_name") {
-    json j = {
-        {"type", "absolute"}
-    };
+SCENARIO("Parsing Locations") {
+    GIVEN("JSON for an absolute location") {
+        json j = {
+            {"type", "absolute"},
+            {"room_name", "Room 1"}
+        };
+        
+        THEN("an AbsoluteLocation is parsed") {
+            AbsoluteLocation *l = (AbsoluteLocation*)ParseLocation(j);
+            
+            REQUIRE(l->room_name == "Room 1");
+        }
+    }
     
-    Result<AbsoluteLocation*> r = ParseAbsoluteLocation(j);
-    
-    REQUIRE(!r.contains_value);
+    GIVEN("JSON where the location type is missing") {
+        json j = {
+            {"room_name", "Room 6B"}
+        };
+        
+        THEN("the Location is not parsed") {
+            REQUIRE_THROWS(ParseLocation(j));
+        }
+    }
 }

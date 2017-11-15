@@ -19,7 +19,7 @@ public:
     }
 };
 
-TEST_CASE("AbsoluteLocations can be visited") {
+SCENARIO("Visiting AbsoluteLocations") {
     AbsoluteLocation loc("Test Room");
     MockLocationVisitor visitor;
     

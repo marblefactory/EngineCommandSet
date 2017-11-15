@@ -60,4 +60,15 @@ SCENARIO("Parsing Locations") {
             REQUIRE_THROWS(ParseLocation(j));
         }
     }
+    
+    GIVEN("JSON where the location type is invalid") {
+        json j = {
+            {"type", "what is this type"},
+            {"room_name", "Room 6B"}
+        };
+        
+        THEN("the Location is not parsed") {
+            REQUIRE_THROWS(ParseLocation(j));
+        }
+    }
 }

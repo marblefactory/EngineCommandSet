@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <boost/asio.hpp>
+#include <system_error>
 using namespace std;
 
 class Client {
@@ -12,9 +13,11 @@ public:
     bool stopClient();
 private:
     void listen();
+    void setupSocket();
+    void destroySocket();
     void reconnect();
     bool connect();
-    int parseHeader(std::string* message) throw(boost::system::system_error) ;
+    int parseHeader(std::string* message) throw(boost::system::system_error);
     void readMessage(int message_length, std::string* message) throw(boost::system::system_error);
     bool checkServerDisconnected(boost::system::error_code errc);
 private:
@@ -24,6 +27,6 @@ private:
     boost::asio::ip::tcp::resolver::iterator endpoint_itr;
     bool shouldReconnect;
     bool isConnected;
-    std::thread* Tlisten;
-    std::thread* Tconnect;
+    std::thread* Tlisten = nullptr;
+    std::thread* Tconnect = nullptr;
 };

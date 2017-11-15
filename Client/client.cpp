@@ -22,17 +22,32 @@ bool Client::setEndpoint(string host, string port){
     }
 }
 
+void Client::setupSocket(){
+    socket = new tcp::socket(io_service);
+    socket->open(tcp::v4());
+    socket->bind(tcp::endpoint(tcp::v4(), 1025));
+}
+
+void Client::destroySocket(){
+    delete socket;
+    socket == nullptr;
+}
+
 void Client::reconnect(){
     std::chrono::seconds one_sec (1);
+    setupSocket();
+    if(Tconnect) {
+        Tconnect->join();
+        delete Tconnect;
+    }
     Tconnect = new std::thread([&]() -> void{
         while(!connect() & shouldReconnect) { std::this_thread::sleep_for(one_sec); }
+        Logging::logDebug(__LINE__, "Tconnect thread dying");
     });
 }
 
-
 bool Client::connect(){
     //Connect to server
-    socket = new tcp::socket(io_service);
     boost::system::error_code errc;
     boost::asio::connect(*socket, endpoint_itr, errc);
     if(errc != boost::system::errc::success){
@@ -42,6 +57,10 @@ bool Client::connect(){
     else {
         Logging::logDebug(__LINE__, "Connection successed");
         isConnected = true;
+        if(Tlisten) {
+            Tlisten->join();
+            delete Tlisten;
+        }
         Tlisten = new std::thread(&Client::listen, this);
         return true;
     }
@@ -66,7 +85,8 @@ void Client::listen(){
             boost::system::error_code errc = e.code();
             Logging::logWarning(__LINE__, " - PEER DISCONNECTED - ERROCODE:" + std::to_string(e.code().value()) + " " + std::string(e.what()));
             isConnected = false;
-        }      
+            destroySocket();
+        } 
     }
     if(shouldReconnect) reconnect();
 }
@@ -101,8 +121,9 @@ int main(int argc, char** argv){
     }
 
     Client client;
-    client.setEndpoint(argv[1], argv[2]);
-    client.startClient();
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    if(client.setEndpoint(argv[1], argv[2])){
+        client.startClient();
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+    }
     return EXIT_SUCCESS;
 }

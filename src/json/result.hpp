@@ -20,6 +20,8 @@ private:
     T value;
     string error_msg;
     
+    // This constructor has an argument for contains_value to disabiguate
+    // between constructors.
     Result(string error_msg, bool contains_value): error_msg(error_msg), contains_value(contains_value) {
     }
     

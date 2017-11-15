@@ -1,5 +1,5 @@
 //
-//  test_parse_result.cpp
+//  test_result.cpp
 //  EngineCommandSet
 //
 //  Created by Albie Baker-Smith on 14/11/2017.

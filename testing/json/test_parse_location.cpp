@@ -10,8 +10,6 @@
 #include "json.hpp"
 #include "location_parser.hpp"
 
-using namespace std;
-
 SCENARIO("Parsing AbsoluteLocations") {
     GIVEN("valid JSON") {
         json j = {

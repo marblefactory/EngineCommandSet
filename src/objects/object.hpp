@@ -18,9 +18,9 @@ using string = std::string;
 class Object {
 public:
     string name;
-    Location &location;
+    Location *location;
     
-    Object(string name, Location &location): name(name), location(location) {
+    Object(string name, Location *location): name(name), location(location) {
     }
 };
 

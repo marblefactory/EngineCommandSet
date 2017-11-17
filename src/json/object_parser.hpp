@@ -10,14 +10,14 @@
 #define object_parser_hpp
 
 #include "json.hpp"
+#include "object.hpp"
 
 using json = nlohmann::json;
 using exception = std::exception;
 
-//// Returns a parsed AbsoluteLocation, or throws if parsing was unsuccessful.
-//AbsoluteLocation* ParseAbsoluteLocation(json j) throw(exception);
-//
-//// Returns a parsed Location, or an throws if parsing was unsuccessful.
-//Location* ParseLocation(json j) throw(exception);
+namespace json_parsing {
+    // Returns the parsed Object, or throws if parsing was unsuccessful.
+    Object *ParseObject(json j) throw(exception);
+}
 
 #endif /* object_parser_hpp */

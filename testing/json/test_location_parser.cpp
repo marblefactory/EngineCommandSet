@@ -1,14 +1,16 @@
 //
-//  test_parse_location.cpp
+//  test_location_parser.cpp
 //  EngineCommandSet
 //
-//  Created by Albie Baker-Smith on 14/11/2017.
+//  Created by Albie Baker-Smith on 17/11/2017.
 //  Copyright © 2017 Albie Baker-Smith. All rights reserved.
 //
 
 #include "catch.hpp"
 #include "json.hpp"
 #include "location_parser.hpp"
+
+using namespace json_parsing;
 
 SCENARIO("Parsing AbsoluteLocations") {
     GIVEN("valid JSON") {
@@ -29,7 +31,7 @@ SCENARIO("Parsing AbsoluteLocations") {
             {"type", "absolute"}
         };
         
-        THEN("the AbsoluteLocation is not parsed") {
+        THEN("tan exception is thrown") {
             REQUIRE_THROWS(ParseAbsoluteLocation(j));
         }
     }
@@ -54,7 +56,7 @@ SCENARIO("Parsing Locations") {
             {"room_name", "Room 6B"}
         };
         
-        THEN("the Location is not parsed") {
+        THEN("an exception is thrown") {
             REQUIRE_THROWS(ParseLocation(j));
         }
     }
@@ -65,7 +67,7 @@ SCENARIO("Parsing Locations") {
             {"room_name", "Room 6B"}
         };
         
-        THEN("the Location is not parsed") {
+        THEN("an exception is thrown") {
             REQUIRE_THROWS(ParseLocation(j));
         }
     }

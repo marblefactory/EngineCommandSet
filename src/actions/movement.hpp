@@ -9,17 +9,17 @@
 #ifndef movement_h
 #define movement_h
 
-#include "objects.hpp"
-#include "actions.hpp"
+#include "object.hpp"
+#include "action.hpp"
 
 // Represents a move the spy can make.
 class Move: public Action {
 public:
     // The destination of the movement, i.e. where the spy will end up after
     // executing the movement.
-    Object &dest;
+    Object *dest;
     
-    Move(Object &dest): dest(dest) {
+    Move(Object *dest): dest(dest) {
     }
     
     void accept(ActionVisitor &visitor) override {

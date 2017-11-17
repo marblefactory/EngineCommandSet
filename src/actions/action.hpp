@@ -1,13 +1,13 @@
 //
-//  actions.h
+//  action.h
 //  EngineCommandSet
 //
 //  Created by Albie Baker-Smith on 14/11/2017.
 //  Copyright © 2017 Albie Baker-Smith. All rights reserved.
 //
 
-#ifndef actions_h
-#define actions_h
+#ifndef action_h
+#define action_h
 
 #include "action_visitor.hpp"
 
@@ -17,4 +17,4 @@ public:
     virtual void accept(ActionVisitor &visitor) = 0;
 };
 
-#endif /* actions_h */
+#endif /* action_h */

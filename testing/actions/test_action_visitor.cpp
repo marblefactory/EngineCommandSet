@@ -21,8 +21,8 @@ public:
 
 SCENARIO("Visiting Movements") {
     AbsoluteLocation loc("Room B");
-    Object obj("Table", loc);
-    Move move(obj);
+    Object obj("Table", &loc);
+    Move move(&obj);
 
     MockActionVisitor visitor;
     

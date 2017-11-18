@@ -7,8 +7,7 @@
 //
 
 #include "location_parser.hpp"
-
-using runtime_error = std::runtime_error;
+#include "json_helper.hpp"
 
 namespace json_parsing {
     // Returns a parsed AbsoluteLocation, or throws if parsing was unsuccessful.
@@ -16,7 +15,7 @@ namespace json_parsing {
         auto room_name = j["room_name"];
         
         if (room_name.is_null()) {
-            throw runtime_error("Missing room_name for AbsoluteLocation");
+            throw MissingJsonFieldParseError("room_name", "AbsoluteLocation");
         }
         
         return new AbsoluteLocation(room_name.get<string>());
@@ -27,7 +26,7 @@ namespace json_parsing {
         auto type = j["type"];
         
         if (type.is_null()) {
-            throw runtime_error("Missing location type");
+            throw MissingJsonFieldParseError("type", "Location");
         }
         
         string str_type = type.get<string>();
@@ -36,6 +35,6 @@ namespace json_parsing {
             return ParseAbsoluteLocation(j);
         }
         
-        throw runtime_error("Unrecognised location type");
+        throw UnknownJsonFieldParseError("type", "Location");
     }
 }

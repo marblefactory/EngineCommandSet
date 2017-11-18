@@ -8,8 +8,7 @@
 
 #include "object_parser.hpp"
 #include "location_parser.hpp"
-
-using runtime_error = std::runtime_error;
+#include "json_helper.hpp"
 
 namespace json_parsing {
     // Returns the parsed Object, or throws if parsing was unsuccessful.
@@ -18,11 +17,11 @@ namespace json_parsing {
         auto location_json = j["location"];
         
         if (name_json.is_null()) {
-            throw runtime_error("Missing name in object");
+            throw MissingJsonFieldParseError("name", "Object");
         }
         
         if (location_json.is_null()) {
-            throw runtime_error("Missing location in object");
+            throw MissingJsonFieldParseError("location", "Object");
         }
         
         Location *loc = ParseLocation(location_json);

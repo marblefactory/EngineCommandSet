@@ -12,33 +12,31 @@
 
 using namespace json_parsing;
 
-SCENARIO("Parsing AbsoluteLocations") {
-    GIVEN("valid JSON") {
+SCENARIO("Parsing Locations") {
+    GIVEN("JSON where the type is missing") {
         json j = {
-            {"type", "absolute"},
             {"room_name", "Room 6B"}
         };
         
-        THEN("the AbsoluteLocation is parsed") {
-            AbsoluteLocation* l = ParseAbsoluteLocation(j);
-            
-            REQUIRE(l->room_name == "Room 6B");
+        THEN("an exception is thrown") {
+            REQUIRE_THROWS(ParseLocation(j));
         }
     }
     
-    GIVEN("JSON where the room_name is missing") {
+    GIVEN("JSON where the type is invalid") {
         json j = {
-            {"type", "absolute"}
+            {"type", "what is this type"},
+            {"room_name", "Room 6B"}
         };
         
-        THEN("tan exception is thrown") {
-            REQUIRE_THROWS(ParseAbsoluteLocation(j));
+        THEN("an exception is thrown") {
+            REQUIRE_THROWS(ParseLocation(j));
         }
     }
 }
 
-SCENARIO("Parsing Locations") {
-    GIVEN("JSON for an absolute location") {
+SCENARIO("Parsing an AbsoluteLocation") {
+    GIVEN("valid JSON") {
         json j = {
             {"type", "absolute"},
             {"room_name", "Room 1"}
@@ -51,20 +49,9 @@ SCENARIO("Parsing Locations") {
         }
     }
     
-    GIVEN("JSON where the location type is missing") {
+    GIVEN("JSON where the room_name is missing") {
         json j = {
-            {"room_name", "Room 6B"}
-        };
-        
-        THEN("an exception is thrown") {
-            REQUIRE_THROWS(ParseLocation(j));
-        }
-    }
-    
-    GIVEN("JSON where the location type is invalid") {
-        json j = {
-            {"type", "what is this type"},
-            {"room_name", "Room 6B"}
+            {"type", "absolute"}
         };
         
         THEN("an exception is thrown") {

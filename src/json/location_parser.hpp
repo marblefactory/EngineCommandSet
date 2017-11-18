@@ -15,10 +15,7 @@
 using json = nlohmann::json;
 using exception = std::exception;
 
-namespace json_parsing {
-    // Returns a parsed AbsoluteLocation, or throws if parsing was unsuccessful.
-    AbsoluteLocation* ParseAbsoluteLocation(json j) throw(exception);
-    
+namespace json_parsing {    
     // Returns a parsed Location, or an throws if parsing was unsuccessful.
     Location* ParseLocation(json j) throw(exception);
 }

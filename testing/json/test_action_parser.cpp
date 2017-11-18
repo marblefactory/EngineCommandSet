@@ -6,47 +6,68 @@
 //  Copyright © 2017 Albie Baker-Smith. All rights reserved.
 //
 
-#include <stdio.h>
+#include "catch.hpp"
+#include "action.hpp"
+#include "action_parser.hpp"
 
-//using namespace json_parsing;
+using namespace json_parsing;
 
-//SCENARIO("Parsing Objects") {
-//    GIVEN("Valid JSON") {
-//        json j = {
-//            {"name", "door"},
-//            {"location", {
-//                {"type", "absolute"},
-//                {"room_name", "Room 6B"}
-//            }}
-//        };
-//        
-//        Object *obj = ParseObject(j);
-//        AbsoluteLocation *loc = (AbsoluteLocation*)obj->location;
-//        
-//        REQUIRE(obj->name == "door");
-//        REQUIRE(loc->room_name == "Room 6B");
-//    }
-//    
-//    GIVEN("JSON where the name is missing") {
-//        THEN("an exception is thrown") {
-//            json j = {
-//                {"location", {
-//                    {"type", "absolute"},
-//                    {"room_name", "Room 6B"}
-//                }}
-//            };
-//            
-//            REQUIRE_THROWS(ParseObject(j));
-//        }
-//    }
-//    
-//    GIVEN("JSON where the location is missing") {
-//        THEN("an exception is thrown") {
-//            json j = {
-//                {"name", "door"}
-//            };
-//            
-//            REQUIRE_THROWS(ParseObject(j));
-//        }
-//    }
-//}
+SCENARIO("Parsing Actions") {
+    GIVEN("JSON where the type is missing") {
+        json j = {
+            {"dest",{
+                {"name", "door"},
+                {"location", {
+                    {"type", "absolute"},
+                    {"room_name", "Room 6B"}
+                }}
+            }}
+        };
+        
+        THEN("an exception is thrown") {
+            REQUIRE_THROWS(ParseAction(j));
+        }
+    }
+    
+    GIVEN("JSON where the type is invalid") {
+        json j = {
+            {"type", "not a type"},
+            {"dest",{
+                {"name", "door"},
+                {"location", {
+                    {"type", "absolute"},
+                    {"room_name", "Room 6B"}
+                }}
+            }}
+        };
+        
+        THEN("an exception is thrown") {
+            REQUIRE_THROWS(ParseAction(j));
+        }
+    }
+
+}
+
+SCENARIO("Parsing Move Actions") {
+    GIVEN("valid JSON") {
+        json j = {
+            {"type", "move"},
+            {"dest",{
+                {"name", "door"},
+                {"location", {
+                    {"type", "absolute"},
+                    {"room_name", "Room 6B"}
+                }}
+            }}
+        };
+        
+        THEN("a Move is parsed") {
+            Move *move = (Move*)ParseAction(j);
+            AbsoluteLocation *loc = (AbsoluteLocation*)move->dest->location;
+            
+            REQUIRE(move->dest->name == "door");
+            REQUIRE(loc->room_name == "Room 6B");
+        }
+    }
+}
+

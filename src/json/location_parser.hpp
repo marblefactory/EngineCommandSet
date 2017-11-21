@@ -12,8 +12,8 @@
 #include "locations.hpp"
 #include "json.hpp"
 
-using json = nlohmann::json;
-using exception = std::exception;
+using nlohmann::json;
+using std::exception;
 
 namespace json_parsing {
     // Returns a parsed Location, or an throws if parsing was unsuccessful.

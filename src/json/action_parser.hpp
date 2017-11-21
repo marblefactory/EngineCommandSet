@@ -13,8 +13,8 @@
 #include "object.hpp"
 #include "action.hpp"
 
-using json = nlohmann::json;
-using exception = std::exception;
+using nlohmann::json;
+using std::exception;
 
 namespace json_parsing {
     // Parses an Action, throws if parsing was unsuccessful.

@@ -12,8 +12,8 @@
 #include "json.hpp"
 #include "object.hpp"
 
-using json = nlohmann::json;
-using exception = std::exception;
+using nlohmann::json;
+using std::exception;
 
 namespace json_parsing {
     // Returns the parsed Object, or throws if parsing was unsuccessful.

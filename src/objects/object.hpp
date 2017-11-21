@@ -12,7 +12,7 @@
 #include <string>
 #include "locations.hpp"
 
-using string = std::string;
+using std::string;
 
 // Represents an object, e.g. the table in room 812.
 class Object {

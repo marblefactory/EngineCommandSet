@@ -28,7 +28,6 @@ SCENARIO("Parsing Locations") {
             {"type", "what is this type"},
             {"room_name", "Room 6B"}
         };
-        
         THEN("an exception is thrown") {
             REQUIRE_THROWS(parse_location(j));
         }

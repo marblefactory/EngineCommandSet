@@ -12,7 +12,7 @@
 #include <string>
 #include "location_visitor.hpp"
 
-using string = std::string;
+using std::string;
 
 class Location {
 public:

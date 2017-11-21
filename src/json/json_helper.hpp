@@ -11,8 +11,8 @@
 
 #include <string>
 
-using runtime_error = std::runtime_error;
-using string = std::string;
+using std::runtime_error;
+using std::string;
 
 namespace json_parsing {
     // Creates an exception saying that missing_field_name was missing from

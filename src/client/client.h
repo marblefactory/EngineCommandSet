@@ -3,22 +3,28 @@
 #include <boost/asio.hpp>
 #include <system_error>
 
-using namespace std;
+using std::string;
+using std::thread;
+using boost::asio::io_service;
+using boost::asio::ip::tcp;
 
 class Client {
 private:
     const size_t MAX_LINESIZE = 100;
-    boost::asio::io_service io_service;
-    boost::asio::ip::tcp::socket* socket;
-    boost::asio::ip::tcp::resolver::iterator endpoint_itr;
+    io_service io_service;
+    tcp::socket* socket;
+    tcp::resolver::iterator endpoint_itr;
     bool shouldReconnect;
     bool isConnected;
-    std::thread* Tlisten = nullptr;
-    std::thread* Tconnect = nullptr;
+    thread* Tlisten = nullptr;
+    thread* Tconnect = nullptr;
 
 public:
     Client(){};
+    
+    // Sets the endpoint of the server. Returns whether the IP address and host are valid.
     bool setEndpoint(string host, string port);
+    
     void startClient() { reconnect(); }
     void stopClient();
 

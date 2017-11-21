@@ -4,13 +4,14 @@
 #include <boost/asio.hpp>
 #include <thread>
 #include "logger.h"
-using boost::asio::ip::tcp;
 
 bool Client::setEndpoint(string host, string port){
     tcp::resolver resolver(io_service);
     tcp::resolver::query query(host, port);
     boost::system::error_code errc;
-    endpoint_itr = resolver.resolve(query, errc);
+    
+    this->endpoint_itr = resolver.resolve(query, errc);
+    
     if(errc != boost::system::errc::success){
         Logging::logError(__LINE__, "Invalid endpoint");
         return false;
@@ -30,24 +31,30 @@ void Client::setupSocket(){
 
 void Client::destroySocket(){
     delete socket;
-    socket == nullptr;
+    socket = nullptr;
 }
 
 void Client::reconnect(){
     std::chrono::seconds one_sec (1);
     setupSocket();
     if(Tconnect) {
+        // The destructor of Tconnect cannot be destroyed unless the thread has
+        // finished. join is used to do this.
         Tconnect->join();
         delete Tconnect;
     }
-    Tconnect = new std::thread([&]() -> void{
-        while(!connect() & shouldReconnect) { std::this_thread::sleep_for(one_sec); }
-        Logging::logDebug(__LINE__, "Tconnect thread dying");
+    // Spawns a thread to connect to the server every second, while the client
+    // hasn't been stopped using `stop_client`.
+    Tconnect = new std::thread([&]() -> void {
+        while(shouldReconnect && !connect()) {
+            std::this_thread::sleep_for(one_sec);
+        }
     });
 }
 
+// Tries to connect to the server.
+// Returns whether the connection was successful.
 bool Client::connect(){
-    //Connect to server
     boost::system::error_code errc;
     boost::asio::connect(*socket, endpoint_itr, errc);
     if(errc != boost::system::errc::success){
@@ -82,7 +89,6 @@ void Client::listen(){
             std::cout << message << std::endl;
         }
         catch(boost::system::system_error& e){
-            boost::system::error_code errc = e.code();
             Logging::logWarning(__LINE__, " - PEER DISCONNECTED - ERROCODE:" + std::to_string(e.code().value()) + " " + std::string(e.what()));
             isConnected = false;
             destroySocket();
@@ -108,7 +114,7 @@ int Client::parseHeader(std::string* message) throw(boost::system::system_error)
 
 void Client::readMessage(int message_length, std::string* message) throw(boost::system::system_error) {
     std::vector<char> data(message_length);
-    size_t bytesRead = boost::asio::read(*socket, boost::asio::buffer(data));
+    boost::asio::read(*socket, boost::asio::buffer(data));
 
     *message += std::string(data.data(), data.size());
 }

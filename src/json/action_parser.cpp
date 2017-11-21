@@ -12,20 +12,20 @@
 
 namespace json_parsing {
     // Parses a Move action, or throws if parsing was unsuccessful.
-    Move *ParseMove(json j) throw(exception) {
+    Move *parse_move(json j) throw(exception) {
         auto dest_json = j["dest"];
         
         if (dest_json.is_null()) {
             throw MissingJsonFieldParseError("destination", "Movement");
         }
         
-        Object *dest = ParseObject(dest_json);
+        Object *dest = parse_object(dest_json);
         
         return new Move(dest);
     }
     
     // Parses an Action, throws if parsing was unsuccessful.
-    Action *ParseAction(json j) throw(exception) {
+    Action *parse_action(json j) throw(exception) {
         auto type_json = j["type"];
         
         if (type_json.is_null()) {
@@ -36,7 +36,7 @@ namespace json_parsing {
         string type = type_json.get<string>();
         
         if (type == "move") {
-            return ParseMove(j);
+            return parse_move(j);
         }
         
         throw UnknownJsonFieldParseError("type", "Action");

@@ -22,7 +22,7 @@ SCENARIO("Parsing Objects") {
             }}
         };
         
-        Object *obj = ParseObject(j);
+        Object *obj = parse_object(j);
         AbsoluteLocation *loc = (AbsoluteLocation*)obj->location;
         
         REQUIRE(obj->name == "door");
@@ -38,7 +38,7 @@ SCENARIO("Parsing Objects") {
                 }}
             };
             
-            REQUIRE_THROWS(ParseObject(j));
+            REQUIRE_THROWS(parse_object(j));
         }
     }
     
@@ -48,7 +48,7 @@ SCENARIO("Parsing Objects") {
                 {"name", "door"}
             };
             
-            REQUIRE_THROWS(ParseObject(j));
+            REQUIRE_THROWS(parse_object(j));
         }
     }
 }

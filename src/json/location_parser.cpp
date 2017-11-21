@@ -11,7 +11,7 @@
 
 namespace json_parsing {
     // Returns a parsed AbsoluteLocation, or throws if parsing was unsuccessful.
-    AbsoluteLocation* ParseAbsoluteLocation(json j) throw(exception) {
+    AbsoluteLocation* parse_absolute_location(json j) throw(exception) {
         auto room_name = j["room_name"];
         
         if (room_name.is_null()) {
@@ -22,7 +22,7 @@ namespace json_parsing {
     }
     
     // Returns a parsed Location, or an throws if parsing was unsuccessful.
-    Location* ParseLocation(json j) throw(exception) {
+    Location* parse_location(json j) throw(exception) {
         auto type = j["type"];
         
         if (type.is_null()) {
@@ -32,7 +32,7 @@ namespace json_parsing {
         string str_type = type.get<string>();
         
         if (str_type == "absolute") {
-            return ParseAbsoluteLocation(j);
+            return parse_absolute_location(j);
         }
         
         throw UnknownJsonFieldParseError("type", "Location");

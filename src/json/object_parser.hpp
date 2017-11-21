@@ -17,7 +17,7 @@ using exception = std::exception;
 
 namespace json_parsing {
     // Returns the parsed Object, or throws if parsing was unsuccessful.
-    Object *ParseObject(json j) throw(exception);
+    Object *parse_object(json j) throw(exception);
 }
 
 #endif /* object_parser_hpp */

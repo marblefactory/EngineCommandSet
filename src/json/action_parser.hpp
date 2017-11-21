@@ -18,7 +18,7 @@ using exception = std::exception;
 
 namespace json_parsing {
     // Parses an Action, throws if parsing was unsuccessful.
-    Action *ParseAction(json j) throw(exception);
+    Action *parse_action(json j) throw(exception);
 }
 
 #endif /* action_parser_hpp */

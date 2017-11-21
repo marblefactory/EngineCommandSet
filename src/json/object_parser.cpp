@@ -12,7 +12,7 @@
 
 namespace json_parsing {
     // Returns the parsed Object, or throws if parsing was unsuccessful.
-    Object *ParseObject(json j) throw(exception) {
+    Object *parse_object(json j) throw(exception) {
         auto name_json = j["name"];
         auto location_json = j["location"];
         
@@ -24,7 +24,7 @@ namespace json_parsing {
             throw MissingJsonFieldParseError("location", "Object");
         }
         
-        Location *loc = ParseLocation(location_json);
+        Location *loc = parse_location(location_json);
         
         return new Object(name_json.get<string>(), loc);
     }

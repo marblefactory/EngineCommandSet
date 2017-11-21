@@ -25,7 +25,7 @@ SCENARIO("Parsing Actions") {
         };
         
         THEN("an exception is thrown") {
-            REQUIRE_THROWS(ParseAction(j));
+            REQUIRE_THROWS(parse_action(j));
         }
     }
     
@@ -42,7 +42,7 @@ SCENARIO("Parsing Actions") {
         };
         
         THEN("an exception is thrown") {
-            REQUIRE_THROWS(ParseAction(j));
+            REQUIRE_THROWS(parse_action(j));
         }
     }
 
@@ -62,7 +62,7 @@ SCENARIO("Parsing Move Actions") {
         };
         
         THEN("a Move is parsed") {
-            Move *move = (Move*)ParseAction(j);
+            Move *move = (Move*)parse_action(j);
             AbsoluteLocation *loc = (AbsoluteLocation*)move->dest->location;
             
             REQUIRE(move->dest->name == "door");

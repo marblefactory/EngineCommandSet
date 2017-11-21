@@ -19,7 +19,7 @@ SCENARIO("Parsing Locations") {
         };
         
         THEN("an exception is thrown") {
-            REQUIRE_THROWS(ParseLocation(j));
+            REQUIRE_THROWS(parse_location(j));
         }
     }
     
@@ -30,7 +30,7 @@ SCENARIO("Parsing Locations") {
         };
         
         THEN("an exception is thrown") {
-            REQUIRE_THROWS(ParseLocation(j));
+            REQUIRE_THROWS(parse_location(j));
         }
     }
 }
@@ -43,7 +43,7 @@ SCENARIO("Parsing an AbsoluteLocation") {
         };
         
         THEN("an AbsoluteLocation is parsed") {
-            AbsoluteLocation *l = (AbsoluteLocation*)ParseLocation(j);
+            AbsoluteLocation *l = (AbsoluteLocation*)parse_location(j);
             
             REQUIRE(l->room_name == "Room 1");
         }
@@ -55,7 +55,7 @@ SCENARIO("Parsing an AbsoluteLocation") {
         };
         
         THEN("an exception is thrown") {
-            REQUIRE_THROWS(ParseLocation(j));
+            REQUIRE_THROWS(parse_location(j));
         }
     }
 }

@@ -15,7 +15,7 @@ using namespace json_parsing;
 SCENARIO("Parsing Locations") {
     GIVEN("JSON where the type is missing") {
         json j = {
-            {"room_name", "Room 6B"}
+            {"place_name", "Room 6B"}
         };
         
         THEN("an exception is thrown") {
@@ -25,36 +25,22 @@ SCENARIO("Parsing Locations") {
     
     GIVEN("JSON where the type is invalid") {
         json j = {
-            {"type", "what is this type"},
-            {"room_name", "Room 6B"}
+            {"type", "what is this type"}
         };
         THEN("an exception is thrown") {
             REQUIRE_THROWS(parse_location(j));
         }
     }
-}
+} 
 
 SCENARIO("Parsing an AbsoluteLocation") {
     GIVEN("valid JSON") {
         json j = {
-            {"type", "absolute"},
-            {"room_name", "Room 1"}
+            {"type", "absolute"}
         };
         
         THEN("an AbsoluteLocation is parsed") {
             AbsoluteLocation *l = (AbsoluteLocation*)parse_location(j);
-            
-            REQUIRE(l->room_name == "Room 1");
-        }
-    }
-    
-    GIVEN("JSON where the room_name is missing") {
-        json j = {
-            {"type", "absolute"}
-        };
-        
-        THEN("an exception is thrown") {
-            REQUIRE_THROWS(parse_location(j));
         }
     }
 }

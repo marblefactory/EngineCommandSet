@@ -21,10 +21,7 @@ public:
 
 class AbsoluteLocation: public Location {
 public:
-    // The name of the location in the game, e.g. Room 6B.
-    const string room_name;
-    
-    AbsoluteLocation(string room_name): room_name(room_name) {
+    AbsoluteLocation() {
     }
     
     void accept(LocationVisitor &visitor) override {

@@ -17,8 +17,7 @@ SCENARIO("Parsing Objects") {
         json j = {
             {"name", "door"},
             {"location", {
-                {"type", "absolute"},
-                {"room_name", "Room 6B"}
+                {"type", "absolute"}
             }}
         };
         
@@ -26,26 +25,14 @@ SCENARIO("Parsing Objects") {
         AbsoluteLocation *loc = (AbsoluteLocation*)obj->location;
         
         REQUIRE(obj->name == "door");
-        REQUIRE(loc->room_name == "Room 6B");
     }
     
     GIVEN("JSON where the name is missing") {
         THEN("an exception is thrown") {
             json j = {
                 {"location", {
-                    {"type", "absolute"},
-                    {"room_name", "Room 6B"}
+                    {"type", "absolute"}
                 }}
-            };
-            
-            REQUIRE_THROWS(parse_object(j));
-        }
-    }
-    
-    GIVEN("JSON where the location is missing") {
-        THEN("an exception is thrown") {
-            json j = {
-                {"name", "door"}
             };
             
             REQUIRE_THROWS(parse_object(j));

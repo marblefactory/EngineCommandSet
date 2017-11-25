@@ -55,8 +55,7 @@ SCENARIO("Parsing Move Actions") {
             {"dest",{
                 {"name", "door"},
                 {"location", {
-                    {"type", "absolute"},
-                    {"room_name", "Room 6B"}
+                    {"type", "absolute"}
                 }}
             }}
         };
@@ -66,7 +65,6 @@ SCENARIO("Parsing Move Actions") {
             AbsoluteLocation *loc = (AbsoluteLocation*)move->dest->location;
             
             REQUIRE(move->dest->name == "door");
-            REQUIRE(loc->room_name == "Room 6B");
         }
     }
 }

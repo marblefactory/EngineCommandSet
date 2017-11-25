@@ -20,7 +20,7 @@ public:
 };
 
 SCENARIO("Visiting Movements") {
-    AbsoluteLocation loc("Room B");
+    AbsoluteLocation loc;
     Object obj("Table", &loc);
     Move move(&obj);
 

@@ -20,7 +20,7 @@ public:
 };
 
 SCENARIO("Visiting AbsoluteLocations") {
-    AbsoluteLocation loc("Test Room");
+    AbsoluteLocation loc;
     MockLocationVisitor visitor;
     
     loc.accept(visitor);
